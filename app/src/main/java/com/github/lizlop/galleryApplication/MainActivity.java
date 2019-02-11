@@ -11,16 +11,20 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.MemoryCategory;
 
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_READ_STORAGE = 12;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GlideApp.get(this).setMemoryCategory(MemoryCategory.HIGH);
+        Glide.get(this).setMemoryCategory(MemoryCategory.HIGH);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {

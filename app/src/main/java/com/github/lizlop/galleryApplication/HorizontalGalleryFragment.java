@@ -9,6 +9,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.*;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
+
 import java.util.List;
 
 public class HorizontalGalleryFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<MediaStoreData>> {
@@ -42,7 +46,7 @@ public class HorizontalGalleryFragment extends Fragment implements LoaderManager
     @Override
     public void onLoadFinished(Loader<List<MediaStoreData>> loader,
                                List<MediaStoreData> mediaStoreData) {
-        GlideRequests glideRequests = GlideApp.with(this);
+        RequestManager glideRequests = Glide.with(this);
         RecyclerAdapter adapter =
                 new RecyclerAdapter(getActivity(), mediaStoreData, glideRequests);
         RecyclerViewPreloader<MediaStoreData> preloader =

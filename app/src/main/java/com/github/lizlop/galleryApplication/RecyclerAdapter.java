@@ -12,8 +12,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.*;
 import com.bumptech.glide.load.Key;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.MediaStoreSignature;
-import com.bumptech.glide.integration.volley.VolleyStreamFetcher.*;
 
 import java.util.*;
 
@@ -23,13 +23,14 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListViewHolde
 
     private final List<MediaStoreData> data;
     private final int screenWidth;
-    private final GlideRequest<Drawable> requestBuilder;
+    private final RequestBuilder<Drawable> requestBuilder;
 
     private int[] actualDimensions;
 
-    RecyclerAdapter(Context context, List<MediaStoreData> data, GlideRequests glideRequests) {
+    RecyclerAdapter(Context context, List<MediaStoreData> data, RequestManager glideRequests) {
         this.data = data;
-        requestBuilder = glideRequests.asDrawable().fitCenter();
+        RequestOptions options = new RequestOptions().fitCenter();
+        requestBuilder = glideRequests.asDrawable().apply(options);
 
         setHasStableIds(true);
 
@@ -68,7 +69,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListViewHolde
 
         requestBuilder
                 .clone()
-                .signature(signature)
+                .apply(new RequestOptions().signature(signature))
                 .load(current.uri)
                 .into(viewHolder.image);
     }
@@ -103,7 +104,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListViewHolde
                 new MediaStoreSignature(item.mimeType, item.dateModified, item.orientation);
         return requestBuilder
                 .clone()
-                .signature(signature)
+                .apply(new RequestOptions().signature(signature))
                 .load(item.uri);
     }
 
