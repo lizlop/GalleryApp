@@ -81,4 +81,8 @@ public class MediaStoreData implements Parcelable {public static final Creator<M
         VIDEO,
         IMAGE,
     }
+
+    public Uri getUri() {
+        return uri;
+    }
 }

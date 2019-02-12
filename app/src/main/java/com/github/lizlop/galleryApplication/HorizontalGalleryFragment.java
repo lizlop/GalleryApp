@@ -1,5 +1,6 @@
 package com.github.lizlop.galleryApplication;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.*;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -30,8 +32,8 @@ public class HorizontalGalleryFragment extends Fragment implements LoaderManager
             @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View result = inflater.inflate(R.layout.recycler_view, container, false);
         recyclerView = (RecyclerView) result.findViewById(R.id.recycler_view);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 

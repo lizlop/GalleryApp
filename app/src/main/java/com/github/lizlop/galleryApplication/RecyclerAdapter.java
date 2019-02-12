@@ -2,6 +2,7 @@ package com.github.lizlop.galleryApplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.*;
@@ -24,6 +25,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListViewHolde
     private final List<MediaStoreData> data;
     private final int screenWidth;
     private final RequestBuilder<Drawable> requestBuilder;
+    private Context mContext;
 
     private int[] actualDimensions;
 
@@ -31,7 +33,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListViewHolde
         this.data = data;
         RequestOptions options = new RequestOptions().fitCenter();
         requestBuilder = glideRequests.asDrawable().apply(options);
-
+        this.mContext = context;
         setHasStableIds(true);
 
         screenWidth = getScreenWidth(context);
@@ -129,13 +131,24 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListViewHolde
     /**
      * ViewHolder containing views to display individual MediaStoreData.
      */
-    static final class ListViewHolder extends RecyclerView.ViewHolder {
+    final class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private final ImageView image;
 
         ListViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION) {
+                MediaStoreData current = data.get(position);
+                Intent intent = new Intent(mContext, ImageViewActivity.class);
+                intent.putExtra(ImageViewActivity.EXTRA_IMAGE, current);
+                mContext.startActivity(intent);
+            }
         }
     }
 }
