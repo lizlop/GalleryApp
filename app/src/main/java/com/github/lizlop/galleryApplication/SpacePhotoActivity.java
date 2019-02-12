@@ -1,6 +1,7 @@
 package com.github.lizlop.galleryApplication;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,10 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.bumptech.glide.request.target.CustomViewTarget;
+import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 
 public class SpacePhotoActivity extends AppCompatActivity {
@@ -26,9 +31,17 @@ public class SpacePhotoActivity extends AppCompatActivity {
         mImageView = (ImageView) findViewById(R.id.image);
         SpacePhoto spacePhoto = getIntent().getParcelableExtra(EXTRA_SPACE_PHOTO);
 
-        Glide.with(this)
-                .load(spacePhoto.getUrl())
+
+
+        Target target = Glide.with(this)
                 .asBitmap()
+                .load(spacePhoto.getUrl())
+                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
+                .into(mImageView);
+
+        /*Glide.with(this)
+                .load(spacePhoto.getUrl())
+                .as
                 .error(R.drawable.ic_cloud_off_red)
                 .listener(new RequestListener<String, Bitmap>() {
 
@@ -56,14 +69,14 @@ public class SpacePhotoActivity extends AppCompatActivity {
                         return false;
                     }
 
-                    /*public void onPalette(Palette palette) {
+                    public void onPalette(Palette palette) {
                         if (null != palette) {
                             ViewGroup parent = (ViewGroup) mImageView.getParent().getParent();
                             parent.setBackgroundColor(palette.getDarkVibrantColor(Color.GRAY));
                         }
-                    }*/
+                    }
                 })
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(mImageView);
+                .into(mImageView);*/
     }
 }

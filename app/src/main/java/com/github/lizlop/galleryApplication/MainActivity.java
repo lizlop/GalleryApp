@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 4);
         RecyclerView recyclerView = findViewById(R.id.rv_images);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             ImageView imageView = holder.mPhotoImageView;
             Glide.with(mContext)
                     .load(spacePhoto.getUrl())
-                    .placeholder(R.drawable.ic_cloud_off_red)
+                    .apply(new RequestOptions().placeholder(R.drawable.ic_cloud_off_red))
                     .into(imageView);
         }
 
