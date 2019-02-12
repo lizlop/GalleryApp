@@ -73,6 +73,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListViewHolde
                 .clone()
                 .apply(new RequestOptions().signature(signature))
                 .load(current.uri)
+                .apply(new RequestOptions().centerInside())
                 .into(viewHolder.image);
     }
 

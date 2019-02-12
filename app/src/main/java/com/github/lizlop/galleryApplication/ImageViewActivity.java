@@ -51,7 +51,7 @@ public class ImageViewActivity extends Activity {
                         }
                     }
                 })*/
-                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA).centerCrop().dontTransform())
+                .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
                 .into(mImageView);
     }
 }
