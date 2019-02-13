@@ -73,7 +73,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListViewHolde
                 .clone()
                 .apply(new RequestOptions().signature(signature))
                 .load(current.uri)
-                .apply(new RequestOptions().centerInside())
+                .apply(new RequestOptions().fitCenter())
                 .into(viewHolder.image);
     }
 
@@ -139,6 +139,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ListViewHolde
         ListViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image);
+            itemView.setOnClickListener(this);
         }
 
         @Override
