@@ -4,17 +4,18 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class MediaStoreData implements Parcelable {public static final Creator<MediaStoreData> CREATOR = new Creator<MediaStoreData>() {
-    @Override
-    public MediaStoreData createFromParcel(Parcel parcel) {
-        return new MediaStoreData(parcel);
-    }
+public class MediaStoreData implements Parcelable {
+    public static final Creator<MediaStoreData> CREATOR = new Creator<MediaStoreData>() {
+        @Override
+        public MediaStoreData createFromParcel(Parcel parcel) {
+            return new MediaStoreData(parcel);
+        }
 
-    @Override
-    public MediaStoreData[] newArray(int i) {
-        return new MediaStoreData[i];
-    }
-};
+        @Override
+        public MediaStoreData[] newArray(int i) {
+            return new MediaStoreData[i];
+        }
+    };
 
     @Override
     public int describeContents() {
