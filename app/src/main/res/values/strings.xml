@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">GalleryApplication1</string>
+    <string name="app_name">GalleryApplication</string>
     <string name="image_content_description">Photo</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
