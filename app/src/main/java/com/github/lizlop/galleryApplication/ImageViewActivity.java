@@ -39,8 +39,6 @@ public class ImageViewActivity extends Activity {
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
                 .into(mImageView);
 
-        ViewPager viewPager = findViewById(R.id.image_detail);
-
         /*final float[] mx = new float[1];
         final float[] my = new float[1];
         final float[] xval = new float[1];
