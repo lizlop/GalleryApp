@@ -2,8 +2,10 @@ package com.github.lizlop.galleryApplication;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
@@ -18,7 +20,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 
 public class ImageViewActivity extends Activity {
     public static final String EXTRA_IMAGE = "ImageViewActivity.IMAGE";
@@ -30,14 +34,28 @@ public class ImageViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_detail);
-
         mImageView = (ImageView) findViewById(R.id.image);
         final MediaStoreData current = getIntent().getParcelableExtra(EXTRA_IMAGE);
 
         Glide.with(this)
+                .asBitmap()
                 .load(current.getUri())
                 .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
-                .into(mImageView);
+                .into(new ImageViewTarget<Bitmap>(mImageView) {
+                    @Override
+                    protected void setResource(@Nullable Bitmap resource) {
+                        getView().setImageBitmap(resource);
+                    }
+
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        super.onResourceReady(resource, transition);
+                        int width = resource.getWidth();
+                        int height = resource.getHeight();
+                        int[] pixels = new int[width*height];
+                        resource.getPixels(pixels,0, width, 0, 0, width, height);
+                    }
+                });
 
         /*final float[] mx = new float[1];
         final float[] my = new float[1];

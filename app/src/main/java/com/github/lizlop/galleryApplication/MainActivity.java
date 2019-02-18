@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void replaceFragment() {
-        Fragment fragment = new HorizontalGalleryFragment();
+        Fragment fragment = new VerticalGalleryFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)

@@ -7,8 +7,10 @@
         android:id="@+id/image"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="97.5dp"
+        android:layout_height="97.5dp"
+        android:layout_marginLeft="4.6dp"
+        android:layout_marginBottom="9.2dp"
         android:layout_weight="1"
         android:contentDescription="@string/image_content_description"/>
 </LinearLayout>

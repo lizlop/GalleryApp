@@ -1,6 +1,8 @@
 package com.github.lizlop.galleryApplication;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -19,7 +21,7 @@ import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
 
 import java.util.List;
 
-public class HorizontalGalleryFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<MediaStoreData>> {
+public class VerticalGalleryFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<MediaStoreData>> {
 
     private RecyclerView recyclerView;
     static private Parcelable mListState;
@@ -37,7 +39,8 @@ public class HorizontalGalleryFragment extends Fragment implements LoaderManager
             @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View result = inflater.inflate(R.layout.recycler_view, container, false);
         recyclerView = (RecyclerView) result.findViewById(R.id.recycler_view);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
+        int spanCount = (getActivity().getResources().getConfiguration().orientation==Configuration.ORIENTATION_LANDSCAPE)?6:4;
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), spanCount);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
