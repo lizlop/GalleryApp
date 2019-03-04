@@ -10,8 +10,12 @@ import android.widget.ImageView;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.github.lizlop.testpalette.ColorHelper.*;
+
 public class MainActivity extends AppCompatActivity {
     SparseIntArray pixelsCounter = new SparseIntArray();
+    Map<Integer, Integer> rgbDif = new HashMap();
+    int[] colors = new int[5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +36,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void setPixelsCounter(int[] pixels){
+        double[] whitePoint = new double[]{0.9505,1.0000,1.0890};
         for (int i=0; i<pixels.length; i++){
-            pixelsCounter.put(pixels[i],pixelsCounter.get(pixels[i],0)+1);
+            double[] pixel = getLab(getXYZ(getLinearRGB(pixels[i])));
+            int dif = (int)Math.floor(getDifference(whitePoint,pixel));
+            rgbDif.put(dif, pixels[i]);
+            pixelsCounter.put(dif,pixelsCounter.get(dif,0)+1);
         }
+        return;
     }
 
     int getCommonColor(int index) {
-        int color = pixelsCounter.keyAt(pixelsCounter.size()-index);
-        return color;
+        Integer color = 0;
+        boolean isNotUnique = true;
+        int currentPosition = index-1;
+        while(isNotUnique){
+            isNotUnique = false;
+            currentPosition++;
+            color = pixelsCounter.keyAt(pixelsCounter.size()-currentPosition);
+            for (int i=index-1; i>0; i--) {
+                if (Math.abs(color-colors[i])<=3)
+                {isNotUnique=true; break;}
+            }
+        }
+        colors[index-1] = rgbDif.get(color);
+        return colors[index-1];
     }
 }
