@@ -1,28 +1,24 @@
-package com.github.lizlop.testpalette;
+package com.github.lizlop.galleryApplication;
 
 public class ColorHelper {
-    public static double getDifference(double[] Lab1, double[] Lab2) {
-        return Math.sqrt(Math.pow(Lab2[0]-Lab1[0],2)+Math.pow(Lab2[1]-Lab1[1],2)+Math.pow(Lab2[2]-Lab1[2],2));
+    public static double getDifference(LABColor c1, LABColor c2) {
+        return getDifference(c1.getL(),c1.getA(),c1.getB(),c2.getL(),c2.getA(),c2.getB());
+    }
+    public static double getDifference(double L1, double a1, double b1, double L2, double a2, double b2) {
+        return Math.sqrt(Math.pow(a2-a1,2)+Math.pow(L2-L1,2)+Math.pow(b2-b1,2));
     }
     public static double getDifference(int sRGB1, int sRGB2){
         return getDifference(getLab(getXYZ(getLinearRGB(sRGB1))),getLab(getXYZ(getLinearRGB(sRGB2))));
     }
 
-    public static boolean isDifferent(int sRGB1, int sRGB2){
-        return (getDifference(sRGB1,sRGB2)>=2.3);
-    }
-    public static boolean isDifferent(int sRGB1, int sRGB2, double minDif){
-        return (getDifference(sRGB1,sRGB2)>=minDif);
-    }
-
-    public static double[] getLab(double X, double Y, double Z){
+    public static LABColor getLab(double X, double Y, double Z){
         double[] whitePoint = new double[]{0.9505,1.0000,1.0890};
         double L = 116*f(Y/whitePoint[1])-16;
         double a = 500*(f(X/whitePoint[0])-f(Y/whitePoint[1]));
         double b = 200*(f(Y/whitePoint[1])-f(Z/whitePoint[2]));
-        return new double[]{L,a,b};
+        return new LABColor(L,a,b);
     }
-    public static double[] getLab(double[] XYZ){
+    public static LABColor getLab(double[] XYZ){
         return getLab(XYZ[0], XYZ[1], XYZ[2]);
     }
     static double f(double t){
@@ -45,12 +41,6 @@ public class ColorHelper {
         double G = (sRGB >>  8) & 0xff;
         double B = (sRGB) & 0xff;
         return getLinearRGB(R/255,G/255,B/255);
-    }
-    public static double[] rgbToArray(int RGB){
-        double R = (RGB >> 16) & 0xff;
-        double G = (RGB >>  8) & 0xff;
-        double B = (RGB) & 0xff;
-        return new double[]{R, G, B};
     }
     public static double[] getLinearRGB(double sRed, double sGreen, double sBlue){
         double linearRed = Math.pow(sRed, getReverseGamut(sRed));
