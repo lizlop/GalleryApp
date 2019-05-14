@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">GalleryApplication</string>
-    <string name="image_content_description">Photo</string>
-
+    <string name="app_name">My Palette</string>
+    <string name="image_content_description">Image</string>
+    <string name="notification">Copied to the clipboard</string>
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

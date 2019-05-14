@@ -37,7 +37,7 @@ public class VerticalGalleryFragment extends Fragment implements LoaderManager.L
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View result = inflater.inflate(R.layout.recycler_view, container, false);
-        recyclerView = (RecyclerView) result.findViewById(R.id.recycler_view);
+        recyclerView = result.findViewById(R.id.recycler_view);
         int spanCount = (getActivity().getResources().getConfiguration().orientation==Configuration.ORIENTATION_LANDSCAPE)?6:4;
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), spanCount);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
